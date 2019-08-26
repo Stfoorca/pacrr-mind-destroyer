@@ -38,6 +38,7 @@ def build_corpus(path_to_data_folder):
     return [[token for token in doc if frequency[token] > 1] for doc in corpus]
 
 def train(path_to_data, model_path, epoch, binary):
+    print('Started training model')
     cores = multiprocessing.cpu_count()
     t = time()
     w2v_model = Word2Vec(min_count=20,
@@ -58,5 +59,6 @@ def train(path_to_data, model_path, epoch, binary):
     print('Time to train the model: {} mins'.format(round((time() - t) / 60, 2)))
 
     w2v_model.wv.save_word2vec_format(model_path, binary=binary)
+    print('Model saved')
 
 train(document_direcotry, './model.bin', 40, True)

@@ -26,7 +26,8 @@ def data_normalization(data):
     data = stop_char_remove(remove_stopwords(data))
     return data
 
-def prepare_data(path_to_dosc, path_to_qrels):
+def prepare_data(path_to_docs, path_to_qrels):
+    print('Started preparing data')
     relevant_files = []
 
     with open(path_to_qrels, 'r') as file:
@@ -34,21 +35,26 @@ def prepare_data(path_to_dosc, path_to_qrels):
     qrels = qrels.split('\n')
 
     # regex101.com
-    regex = r'(\d+)\s(\d+)\s(\d+)\s(\d+)\s([+|-]?\d+)'
+    #regex = r'(\d+)\s(\d+)\s(\d+)\s([+|-]?\d+\$)'
 
     for line in qrels:
-        data = re.search(regex, line)
-        # W data.group(5) jest ostatnia cyfra klasyfikujaca czy
-        # dokument jest wart uwagi.
-        is_relevant = data.group(5)
+        #data = re.search(regex, line)
+
+        tmp = line.split('\t')
+        data = []
+        for string in tmp:
+            string = string.replace(' ', '')
+            data.append(string)
+        is_relevant = data[3]
 
         if is_relevant != '-1':
-            file_name = data.group(3)
+            file_name = data[2]
             relevant_files.append(file_name)
 
     for i in range(0, len(relevant_files)):
-        file_name = path_to_dosc + relevant_files[i]
-
+        file_name = path_to_docs + relevant_files[i]
+        if i % 500 == 0:
+            print('Counter: {}'.format(i))
         with open(file_name, 'r') as file:
             data = file.read()
 
@@ -62,6 +68,7 @@ def prepare_data(path_to_dosc, path_to_qrels):
  # filtered_sentence = [w for w in word_tokens if not w in stop_words]
             if docid != relevant_files[i]:
                 assert 1 == 0
+    print('Data prepared')
 
 
 prepare_data('./docs/', './qrels')

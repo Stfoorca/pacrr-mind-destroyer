@@ -1,15 +1,15 @@
 import os, importlib
 import keras.callbacks
-from utils.year_2_qids import get_train_qids, get_qrelf
-from utils.common_utils import read_qrel, config_logger, SoftFailure
-from utils.ngram_nfilter import get_ngram_nfilter
-from utils.utils import load_train_data_generator, DumpWeight, dump_modelplot
+from year_2_qids import get_train_qids, get_qrelf
+from common_utils import read_qrel, config_logger, SoftFailure
+from ngram_nfilter import get_ngram_nfilter
+from utils import load_train_data_generator, DumpWeight, dump_modelplot
 import numpy as np, matplotlib as mpl
 mpl.use('Agg')
 mpl.rcParams.update({'font.size': 10})
 import matplotlib.pyplot as plt
 import pickle, logging
-from utils.config import file2name, default_params, perlf, qrelfdir, rawdoc_mat_dir
+from config import file2name, default_params, perlf, qrelfdir, rawdoc_mat_dir
 # forces the tensorflow session to be launched immediately
 # it is important when the tf random seed is fixed
 import keras.backend as K
@@ -46,10 +46,8 @@ def main(_log, _config):
     outdir='%s/train_%s/%s/model_weight/%s'%(p['parentdir'], p['train_years'], p['expname'], expid)
     # the plots for the model, the training loss etc..
     detail_outdir='%s/train_%s/%s/model_detail/'%(p['parentdir'], p['train_years'], p['expname'])
-
     if not os.path.isdir(detail_outdir + 'outs'):
         os.makedirs(detail_outdir + 'outs')
-    
     _log.info('Input parameters: {0}'.format(p))
     label2tlabel={4:2,3:2,2:2,1:1,0:0,-2:0}
     sample_label_prob=dict()

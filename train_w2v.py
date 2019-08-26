@@ -13,12 +13,12 @@ import xml.etree.ElementTree as ET
 based on the examples from https://radimrehurek.com/gensim/models/word2vec.html
 '''
 
-cwid_txt_dir= '/home/pepe/Desktop/paccr-master/relevant/'
-query_xml_file = '/home/pepe/Desktop/paccr-master/query3.xml'
-outdir = '/home/pepe/Desktop/paccr-master/matrix/'
-g_pretrain_bin_file = '/home/pepe/Desktop/paccr-master/GoogleNews-vectors-negative300.bin'
+cwid_txt_dir= '/home/pepe/git/pacrr/relevant/'
+query_xml_file = '/home/pepe/git/pacrr/query.xml'
+outdir = '/home/pepe/git/pacrr/matrix/'
+g_pretrain_bin_file = '/home/pepe/git/pacrr/bio_nlp_vec/PubMed-shuffle-win-2.bin'
 
-word_dim=300
+word_dim=200
 
 
 # read in query
