@@ -85,7 +85,6 @@ def main(_log, _config):
         expid = model.params_to_string(model_params, True)
         expids.append(expid)
     raw_expid = model.params_to_string(model_params_raw, True)
-    print(train_test_years)
     for train_years in train_test_years:
 
         for i in range(len(train_test_years[train_years])):
@@ -116,12 +115,30 @@ def main(_log, _config):
 
             test_qids = year_qids[test_year]
             qrelf = get_qrelf(qrelfdir, test_year)
-            qid_cwid_label = read_qrel(qrelf, test_qids, include_spam=False)
-            year_pkey_docpairs = create_docpairs(qid_cwid_label, test_qids, qid_year)
             
+            qid_cwid_label = read_qrel(qrelf, test_qids, include_spam=False)
+            #print('-------------------------------------------------------------')
+            #print(qid_cwid_label)
+            #print('-------------------------------------------------------------')
+            print('-------------------------------------------------------------')
+            print(test_qids, qid_year)
+            print('-------------------------------------------------------------')
+            year_pkey_docpairs = create_docpairs(qid_cwid_label, test_qids, qid_year)
+            #print('-------------------------------------------------------------')
+            #print(year_pkey_docpairs)
+            #print('-------------------------------------------------------------')
             best_pred_dir, argmax_epoch, argmax_run, argmax_ndcg, argmax_err = get_epoch_from_val(pred_dirs, val_dirs)
-
+            #print('-------------------------------------------------------------')
+            #print('{} _________ {} _________ {} _________ {} _________ {}'.format(best_pred_dir, argmax_epoch, argmax_run, argmax_ndcg, argmax_err))
+            #print('-------------------------------------------------------------')
             qid_cwid_invrank, _, runid = read_run(os.path.join(best_pred_dir, argmax_run))
+            #print('-------------------------------------------------------------')
+            #print(qid_cwid_invrank, runid)
+            #print('-------------------------------------------------------------')
+            print('-------------------------------------------------------------')
+            print(year_pkey_docpairs.keys())
+            print('-------------------------------------------------------------')
+            
             pkey_qid_acc = eval_docpair_predaccuracy(qid_cwid_invrank, year_pkey_docpairs, test_year)
 
 

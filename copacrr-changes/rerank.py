@@ -133,6 +133,7 @@ def main(_log, _config):
             for expid in expids:
                 pred_dir = '%s/train_%s/%s/predict_per_epoch/test_%s/%s' % (p['parentdir'], train_years, p['expname'], test_year, expid)
                 val_dir = '%s/train_%s/%s/predict_per_epoch/test_%s/%s' % (p['parentdir'], train_years, p['expname'], val_year, expid)
+                print(pred_dir, val_dir)
                 if not os.path.isdir(pred_dir) or not os.path.isdir(val_dir):
                     warnings.warn('No such dir {0}/{1}'.format(pred_dir, val_dir), RuntimeWarning)
                     continue

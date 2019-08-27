@@ -1,6 +1,6 @@
 import os
 
-qid_year=dict(zip(list(range(1,301)), ['wt09'] * 50 + ['wt10'] * 50 + \
+qid_year=dict(zip(list(range(1,316)),['wt08'] * 15 + ['wt09'] * 50 + ['wt10'] * 50 + \
                 ['wt11'] * 50 + ['wt12'] * 50 + ['wt13'] * 50 + ['wt14'] * 50))
 
 year_qids={'wt08':list(range(1, 16)), 'wt09':list(range(1,51)),'wt10':list(range(51,101)),\
